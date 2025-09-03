@@ -1,5 +1,5 @@
 {
-  "name": "pokerogue-legendary-api",
+  "name": "pokerogue-daily-calc",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -10,6 +10,7 @@
     "test:today": "node dist/index.js test-today"
   },
   "dependencies": {
+    "@vendia/serverless-express": "^4.12.6",
     "express": "^4.19.2"
   },
   "devDependencies": {
