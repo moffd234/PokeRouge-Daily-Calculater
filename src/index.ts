@@ -232,7 +232,12 @@ app.get("/api/calendar", (req: Request, res: Response) => {
 // Export app for Lambda
 export default app;
 
-if (require.main === module) {
+import url from "url";
+
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
+
+if (process.argv[1] === __filename) {
     const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
     if (process.argv[2] === "test-today") {
