@@ -6,17 +6,19 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "test:today": "node dist/index.js test-today"
+    "dev": "ts-node-dev --respawn --transpile-only --esm src/index.ts",
+    "test:today": "node dist/index.js test-today",
+    "build:lambda": "tsc && cp package.json dist/"
   },
   "dependencies": {
-    "@vendia/serverless-express": "^4.12.6",
+    "serverless-http": "^3.2.0",
     "express": "^4.19.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
+    "@types/node": "^20.0.0",
     "esbuild": "^0.25.9",
-    "ts-node-dev": "^2.0.0",
+    "ts-node": "^10.9.0",
     "typescript": "^5.4.0"
   }
 }

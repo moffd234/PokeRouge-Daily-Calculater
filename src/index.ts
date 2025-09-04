@@ -196,6 +196,27 @@ function getMonthCalendar(year: number, monthZeroBased: number) {
 
 const app = express();
 
+// Add CORS middleware
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+
+    if (req.method === 'OPTIONS') {
+        res.sendStatus(200);
+    } else {
+        next();
+    }
+});
+
+// Strip /default prefix for cleaner routing
+app.use((req, res, next) => {
+    if (req.url.startsWith('/default')) {
+        req.url = req.url.replace('/default', '');
+    }
+    next();
+});
+
 app.get("/api/today", (_req: Request, res: Response) => {
     const now = new Date();
     const todayUTC = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
@@ -231,6 +252,9 @@ app.get("/api/calendar", (req: Request, res: Response) => {
 
 // Export app for Lambda
 export default app;
+
+// Export functions for potential direct Lambda usage
+export { getLegendaryGachaForTimestamp, getMonthCalendar };
 
 import url from "url";
 
